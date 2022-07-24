@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import { ref } from 'vue'
-import { useQuery, useResult } from '@vue/apollo-composable'
+import { computed, ref } from 'vue'
+import { useQuery } from '@vue/apollo-composable'
 import ALL_BOOKS_QUERY from './graphql/allBooks.query.gql'
 
 export default {
@@ -31,7 +31,7 @@ export default {
       })
     )
 
-    const books = useResult(result, [], data => data.allBooks)
+    const books = computed(() => result.value?.allBooks ?? [])
 
     return { books, searchTerm, loading, error }
   },
